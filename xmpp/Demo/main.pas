@@ -28,7 +28,7 @@ var
 implementation
 
 uses
-  DirectionalElement;
+  item,NativeXml;
 
 {$R *.dfm}
 
@@ -44,9 +44,15 @@ end;
 
 procedure TForm1.btn3Click(Sender: TObject);
 var
-  dir:TDirectionalElement;
+  dir:TItem;
+  doc:TNativeXml;
 begin
-  ShowMessage(dir.Create('dddd','sss:sssss').WriteToString);
+  doc:=TNativeXml.Create(nil);
+  dir:=TItem.Create(doc);
+  dir.ItemName:='test';
+  dir.Value:='sdfsfsdfsf';
+  ShowMessage(dir.WriteToString);
+  doc.Free;
 end;
 
 end.

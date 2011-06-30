@@ -31,7 +31,7 @@
 			<DCC_ExeOutput>.\$(Config)\$(Platform)</DCC_ExeOutput>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
-			<BRCC_IncludePath>E:\Solution\Dephi\XMPP\Idn;$(BRCC_IncludePath)</BRCC_IncludePath>
+			<BRCC_IncludePath>E:\Solution\Dephi\XMPP\XMPP;E:\Solution\Dephi\XMPP\XMPP\protocol\Base;E:\Solution\Dephi\XMPP\XMPP\util;E:\Solution\Dephi\XMPP\XMPP\XML\Dom;$(BRCC_IncludePath)</BRCC_IncludePath>
 			<DCC_DebugDCUs>true</DCC_DebugDCUs>
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
 			<DCC_Optimize>false</DCC_Optimize>

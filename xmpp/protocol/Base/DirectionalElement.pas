@@ -2,9 +2,9 @@ unit DirectionalElement;
 
 interface
 uses
-  NativeXml,jid;
+  NativeXml,jid,Element;
 type
-  TDirectionalElement=class(TsdElement)
+  TDirectionalElement=class(TElement)
   private
     doc:TNativeXml;
     procedure FSetToJid(jid:Tjid);
@@ -13,50 +13,59 @@ type
     function fGetFromJid():TJID;
 
   public
-    constructor Create(tag,ns:string);
     procedure SwitchDirection();
     property FromJid:TJid read fGetFromJid write FSetFromJid;
     property ToJid:Tjid read FGetToJid write FSetToJid;
-    function ToString():string;
   end;
 
 implementation
 
 { TDirectionalElement }
 
-constructor TDirectionalElement.Create(tag, ns: string);
-begin
 
-end;
 
 function TDirectionalElement.fGetFromJid: TJID;
 begin
-
+  if HasAttribute('from') then
+    Result:=TJID.Create(AttributeValueByName['from'])
+  else
+    Result:=nil;
 end;
 
 function TDirectionalElement.FGetToJid: TJID;
 begin
-
+  if HasAttribute('to') then
+    Result:=TJID.Create(AttributeValueByName['to'])
+  else
+    Result:=nil;
 end;
 
 procedure TDirectionalElement.FSetFromJid(jid: Tjid);
 begin
-
+  if jid<>nil then
+    AttributeAdd('from',jid.ToString)
+  else
+    AttributeDelete(AttributeIndexByName('from'));
 end;
 
 procedure TDirectionalElement.FSetToJid(jid: Tjid);
 begin
-
+  if jid<>nil then
+    AttributeAdd('to',jid.ToString)
+  else
+    AttributeDelete(AttributeIndexByName('to'));
 end;
 
 procedure TDirectionalElement.SwitchDirection;
+var
+  jfrom,jto:TJID;
 begin
-
+  jfrom:=FromJid;
+  jto:=tojid;
+  AttributeAdd('from',jto.ToString);
+  AttributeAdd('to',jfrom.ToString);
 end;
 
-function TDirectionalElement.ToString: string;
-begin
-result:=  doc.Root.WriteToString;
-end;
+
 
 end.

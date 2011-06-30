@@ -8,13 +8,13 @@ type
   private
     function fgetjid: TJID;
     procedure fsetjid(value:TJID);
-    function fgetattr:string;
-    procedure fsetattr(value:string);
+    function fgetitemname:string;
+    procedure fsetitemname(value:string);
   published
   public
     constructor Create(AOwner:tnativexml);
     property Jid:TJID read fgetjid write fsetjid;
-    property ItemName:string read fgetattr write fsetattr;
+    property ItemName:string read fgetitemname write fsetitemname;
   end;
 
 implementation
@@ -27,25 +27,30 @@ begin
   name:='item';
 end;
 
-function TItem.fgetattr: string;
+function TItem.fgetitemname: string;
 begin
-  if(HasAttribute('jid'))
-  result:=AttributeValueByName['jid'];
+  Result:=AttributeValueByName['name'];
 end;
 
 function TItem.fgetjid: TJID;
 begin
-
+  if(HasAttribute('jid')) then
+    Result:=TJID.Create(AttributeValueByName['jid'])
+  else
+    Result:=nil;
 end;
 
-procedure TItem.fsetattr(value: string);
+procedure TItem.fsetitemname(value: string);
 begin
-
+  AttributeAdd('name',value);
 end;
 
 procedure TItem.fsetjid(value: TJID);
 begin
-
+  if(value<>nil)then
+    AttributeByName['jid'].Value:=value.ToString
+  else
+    AttributeByName['jid'].Value:='';
 end;
 
 end.

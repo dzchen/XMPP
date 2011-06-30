@@ -38,7 +38,8 @@ contains
   Jid in 'Jid.pas',
   stringprep in 'Idn\stringprep.pas',
   Element in 'XML\Dom\Element.pas',
-  Text in 'XML\Dom\Text.pas',
-  Item in 'protocol\Base\Item.pas';
+  Item in 'protocol\Base\Item.pas',
+  RosterItem in 'protocol\Base\RosterItem.pas',
+  Group in 'protocol\Base\Group.pas';
 
 end.
