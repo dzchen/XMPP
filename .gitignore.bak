@@ -1,0 +1,6 @@
+.svn
+__history
+debug
+*.local
+*.tvsconfig
+*.identcache
