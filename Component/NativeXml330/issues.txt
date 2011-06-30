@@ -1,0 +1,95 @@
+Open issues
+===========
+16jan2011
+Add INF and -INF in the string <-> float conversions
+http://www.simdesign.nl/forum/viewtopic.php?f=12&t=1310
+status: open
+
+Closed issues
+=============
+23mar2011
+WriteBool gives incorrect result
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1656&p=7137#p7137
+status: fixed
+
+22mar2011
+remove const for Builder support
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1650
+status: fixed
+
+15mar2011
+Add methods ReadWideString and WriteWideString
+http://www.simdesign.nl/forum/viewtopic.php?f=12&t=1621&p=7069#p7069
+status: added in 3.26
+
+01feb2011
+multi-line nodes get penultimate character doubled
+http://www.simdesign.nl/forum/viewtopic.php?f=12&t=1452
+status: fixed in 3.21
+
+17jan2011
+Implement properties TXmlNode.ValueAsXYZ
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1346
+status: completed
+
+17jan2011
+Node.Value must be given in the correct locale (eg Windows/Linux) and
+thus EndOfLines inside the trimmed value must be corrected for it
+status: fixed 
+
+26sep2010
+Possible bug in Utf8Pos function
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1278&p=6425#p6425
+status: no longer used in NativeXmlEx
+
+01dec2010
+difference between nativexml and indy concerning base64 encoding/decoding
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1311&p=6502#p6502
+status: no change required
+
+23jul2010
+WriteAttributeInt64 and WriteInt64 are wrong
+http://www.simdesign.nl/forum/viewtopic.php?f=12&t=1175
+status: fixed in 3.11
+
+21sep2010
+No info stored in stream in procedure ObjectSaveToXmlXXXX
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1265&p=6394#p6394
+status: fixed in 3.10
+
+24aug2010
+XML without encoding should be UTF-8
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1255
+status: fixed in 3.10
+
+04aug2010
+bug in Local bias (daylightsaving) and time zone designator in date/time conversion 
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1177
+status: fixed in 3.10
+
+24jul2010
+change behaviour of all default values (exit instead of exceptions)
+http://www.simdesign.nl/forum/viewtopic.php?f=12&t=1174
+status: fixed in 3.10
+
+08jul2010
+Allow multiple defined properties
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1163&p=6338#p6338
+status: fixed in 3.10
+
+07jul2010
+ValueAsString delivers format chars
+http://www.simdesign.nl/forum/viewtopic.php?f=12&t=1160
+status: requires feedback
+
+11may2010
+Bug in varCurrency values when reading variants
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1137
+status: fixed in 3.10
+
+01may2010
+Bug in variant type when component loading
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1131
+http://www.simdesign.nl/forum/viewtopic.php?f=2&t=1132
+status: fixed in 3.10
+
