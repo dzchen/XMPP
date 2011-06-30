@@ -1,0 +1,8 @@
+.svn
+__history
+debug
+*.local
+*.tvsconfig
+*.identcache
+LibrarySupport
+ModelSupport_XMPP
