@@ -62,6 +62,7 @@
 			<DCCReference Include="protocol\Base\Item.pas"/>
 			<DCCReference Include="protocol\Base\RosterItem.pas"/>
 			<DCCReference Include="protocol\Base\Group.pas"/>
+			<DCCReference Include="Id.pas"/>
 			<None Include="ModelSupport_XMPP\default.txvpck"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>

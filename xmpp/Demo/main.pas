@@ -53,6 +53,7 @@ begin
   dir.Value:='sdfsfsdfsf';
   ShowMessage(dir.WriteToString);
   doc.Free;
+  IntToStr()
 end;
 
 end.

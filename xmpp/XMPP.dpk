@@ -40,6 +40,7 @@ contains
   Element in 'XML\Dom\Element.pas',
   Item in 'protocol\Base\Item.pas',
   RosterItem in 'protocol\Base\RosterItem.pas',
-  Group in 'protocol\Base\Group.pas';
+  Group in 'protocol\Base\Group.pas',
+  Id in 'Id.pas';
 
 end.
