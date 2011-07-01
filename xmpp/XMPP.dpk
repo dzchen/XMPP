@@ -26,7 +26,8 @@ package XMPP;
 
 requires
   rtl,
-  vcl;
+  vcl,
+  soaprtl;
 
 contains
   DirectionalElement in 'protocol\Base\DirectionalElement.pas',
@@ -41,6 +42,11 @@ contains
   Item in 'protocol\Base\Item.pas',
   RosterItem in 'protocol\Base\RosterItem.pas',
   Group in 'protocol\Base\Group.pas',
-  Id in 'Id.pas';
+  Id in 'Id.pas',
+  Stream in 'protocol\Base\Stream.pas',
+  Avatar in 'protocol\Base\Avatar.pas',
+  Base64 in 'Base64.pas',
+  Error in 'client\Error.pas',
+  XmppUri in 'XmppUri.pas';
 
 end.

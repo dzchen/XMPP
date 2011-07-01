@@ -27,6 +27,7 @@ type
       property Prefix:string read FGetPrefix write FSetPrefix;
       property Value:string  read FGetValue write FSetValue;
       property Namespace:string read FGetNamespace write FSetNamespace;
+      function HasTag(tag:string):Boolean;
 
   end;
 
@@ -111,6 +112,14 @@ end;
 procedure TElement.FSetValue(value: string);
 begin
   _value.Value:=value;
+end;
+
+function TElement.HasTag(tag: string): Boolean;
+begin
+  if(FindNode(tag)<>nil)then
+    Result:=True;
+  else
+    Result:=false;
 end;
 
 end.

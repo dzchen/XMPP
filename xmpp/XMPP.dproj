@@ -50,6 +50,7 @@
 			</DelphiCompile>
 			<DCCReference Include="rtl.dcp"/>
 			<DCCReference Include="vcl.dcp"/>
+			<DCCReference Include="soaprtl.dcp"/>
 			<DCCReference Include="protocol\Base\DirectionalElement.pas"/>
 			<DCCReference Include="protocol\Base\Stanza.pas"/>
 			<DCCReference Include="XML\XMLAttrib.pas"/>
@@ -63,6 +64,11 @@
 			<DCCReference Include="protocol\Base\RosterItem.pas"/>
 			<DCCReference Include="protocol\Base\Group.pas"/>
 			<DCCReference Include="Id.pas"/>
+			<DCCReference Include="protocol\Base\Stream.pas"/>
+			<DCCReference Include="protocol\Base\Avatar.pas"/>
+			<DCCReference Include="Base64.pas"/>
+			<DCCReference Include="client\Error.pas"/>
+			<DCCReference Include="XmppUri.pas"/>
 			<None Include="ModelSupport_XMPP\default.txvpck"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>

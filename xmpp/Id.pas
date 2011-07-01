@@ -23,6 +23,9 @@ implementation
 { TId }
 
 class function TId.GetNextId: string;
+var
+  V: TGUID;
+  S: String;
 begin
   if(_type=Numeric) then
   begin
@@ -31,7 +34,9 @@ begin
   end
   else
   begin
-    Result:=_prefix+TGuidHelper.NewGuid.ToString;
+    V := TGUID.NewGuid;
+    S := V.ToString;
+    Result:=_prefix+s;
   end;
 end;
 

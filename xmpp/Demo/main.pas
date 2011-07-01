@@ -28,7 +28,7 @@ var
 implementation
 
 uses
-  item,NativeXml;
+  item,NativeXml,EncdDecd;
 
 {$R *.dfm}
 
@@ -46,14 +46,27 @@ procedure TForm1.btn3Click(Sender: TObject);
 var
   dir:TItem;
   doc:TNativeXml;
+  mem,mem2:TStringStream;
+  en:TEncoding;
+  buf:tbytes;
+  s:string;
 begin
-  doc:=TNativeXml.Create(nil);
+  {doc:=TNativeXml.Create(nil);
   dir:=TItem.Create(doc);
   dir.ItemName:='test';
   dir.Value:='sdfsfsdfsf';
   ShowMessage(dir.WriteToString);
-  doc.Free;
-  IntToStr()
+  doc.Free;      }
+
+  //mem2:=TStringStream.Create;
+  //mem:=TStringStream.Create('test');
+  //DecodeStream(mem,mem2);
+  s:='test';
+  buf:=DecodeBase64(s);
+  s:=EncodeBase64(buf,Length(buf));
+  ShowMessage(s);
+  ShowMessage(IntToStr(buf[0]));
+  //DecodeBase64Buf('test',buf,Length('test'));
 end;
 
 end.
