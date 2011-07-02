@@ -47,6 +47,7 @@ contains
   Avatar in 'protocol\Base\Avatar.pas',
   Base64 in 'Base64.pas',
   Error in 'client\Error.pas',
-  XmppUri in 'XmppUri.pas';
+  XmppUri in 'XmppUri.pas',
+  IQ in 'client\IQ.pas';
 
 end.

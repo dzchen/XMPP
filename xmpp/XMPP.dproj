@@ -69,6 +69,7 @@
 			<DCCReference Include="Base64.pas"/>
 			<DCCReference Include="client\Error.pas"/>
 			<DCCReference Include="XmppUri.pas"/>
+			<DCCReference Include="client\IQ.pas"/>
 			<None Include="ModelSupport_XMPP\default.txvpck"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
