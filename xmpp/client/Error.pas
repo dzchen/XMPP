@@ -2,7 +2,7 @@ unit Error;
 
 interface
 uses
-  Element,NativeXml,XmppUri;
+  Element,NativeXml,XmppUri,SysUtils;
 type
   TErrorCondition=(BadRequest,
 		Conflict,
@@ -101,18 +101,18 @@ type
   private
     procedure FSetMessage(value:string);
     function FGetMessage():string;
-    procedure FSetErrorCode(value:string);
-    function FGetErrorCode():string;
-    procedure FSetErrorType(value:string);
-    function FGetErrorType():string;
+    procedure FSetErrorCode(value:TErrorCode);
+    function FGetErrorCode():TErrorCode;
+    procedure FSetErrorType(value:TErrorType);
+    function FGetErrorType():TErrorType;
     procedure FSetCondition(value:TErrorCondition);
     function FGetCondition():TErrorCondition;
   public
     constructor Create(AOwner:TNativeXml);overload;
     constructor Create(AOwner:TNativeXml;code:TErrorCode);overload;
-    constructor Create(AOwner: TNativeXml;tp:TErrorType); override;
-    constructor Create(AOwner: TNativeXml;condition:TErrorCondition); override;
-    constructor Create(AOwner: TNativeXml;tp:TErrorType;condition:TErrorCondition); override;
+    constructor CreateError(AOwner: TNativeXml;tp:TErrorType);
+    constructor CreateCondition(AOwner: TNativeXml;condition:TErrorCondition);
+    constructor CreateErrorCondition(AOwner: TNativeXml;tp:TErrorType;condition:TErrorCondition);
     property Message:string read FGetMessage write FSetMessage;
     property Code:TErrorCode read FGetErrorCode write FSetErrorCode;
     property ErrorType:TErrorType read FGetErrorType write FSetErrorType;
@@ -127,7 +127,7 @@ implementation
 constructor TError.Create(AOwner: TNativeXml; code: TErrorCode);
 begin
   inherited Create(AOwner);
-  AttributeAdd('code',code);
+  AttributeAdd('code',sdIntToString(Integer(code)));
 end;
 
 constructor TError.Create(AOwner: TNativeXml);
@@ -136,20 +136,20 @@ begin
   Namespace:=XMLNS_CLIENT;
 end;
 
-constructor TError.Create(AOwner: TNativeXml; tp: TErrorType);
+constructor TError.CreateError(AOwner: TNativeXml; tp: TErrorType);
 begin
   inherited Create(AOwner);
   ErrorType:=tp;
 end;
 
-constructor TError.Create(AOwner: TNativeXml; tp: TErrorType;
+constructor TError.CreateErrorCondition(AOwner: TNativeXml; tp: TErrorType;
   condition: TErrorCondition);
 begin
-  inherited Create(AOwner,tp);
+  CreateError(AOwner,tp);
   Condition:=condition;
 end;
 
-constructor TError.Create(AOwner: TNativeXml; condition: TErrorCondition);
+constructor TError.CreateCondition(AOwner: TNativeXml; condition: TErrorCondition);
 begin
   inherited Create(AOwner);
   Condition:=condition;
@@ -157,85 +157,182 @@ end;
 
 function TError.FGetCondition: TErrorCondition;
 begin
-  if (HasTag("bad-request"))					// <bad-request/>
-					return ErrorCondition.BadRequest;
-				else if (HasTag("conflict"))				// <conflict/>
-					return ErrorCondition.Conflict;
-				else if  (HasTag("feature-not-implemented"))// <feature-not-implemented/>
-					return ErrorCondition.FeatureNotImplemented;
-				else if (HasTag("forbidden"))				// <forbidden/>
-					return ErrorCondition.Forbidden;
-				else if (HasTag("gone"))					// <gone/>
-					return ErrorCondition.Gone;
-				else if (HasTag("internal-server-error"))	// <internal-server-error/>
-					return ErrorCondition.InternalServerError;
-				else if (HasTag("item-not-found"))			// <item-not-found/>
-					return ErrorCondition.ItemNotFound;
-				else if (HasTag("jid-malformed"))			// <jid-malformed/>
-					return ErrorCondition.JidMalformed;
-				else if (HasTag("not-acceptable"))			// <not-acceptable/>
-					return ErrorCondition.NotAcceptable;
-				else if (HasTag("not-authorized"))			// <not-authorized/>
-					return ErrorCondition.NotAuthorized;
-				else if (HasTag("payment-required"))		// <payment-required/>
-					return ErrorCondition.PaymentRequired;
-				else if (HasTag("recipient-unavailable"))	// <recipient-unavailable/>
-					return ErrorCondition.RecipientUnavailable;
-				else if (HasTag("redirect"))				// <redirect/>
-					return ErrorCondition.Redirect;
-				else if (HasTag("registration-required"))	// <registration-required/>
-					return ErrorCondition.RegistrationRequired;
-				else if (HasTag("remote-server-not-found"))	// <remote-server-not-found/>
-					return ErrorCondition.RemoteServerNotFound;
-				else if (HasTag("remote-server-timeout"))	// <remote-server-timeout/>
-					return ErrorCondition.RemoteServerTimeout;
-				else if (HasTag("resource-constraint"))		// <resource-constraint/>
-					return ErrorCondition.ResourceConstraint;
-				else if (HasTag("service-unavailable"))		// <service-unavailable/>
-					return ErrorCondition.ServiceUnavailable;
-				else if (HasTag("subscription-required"))	// <subscription-required/>
-					return ErrorCondition.SubscriptionRequired;
-				else if (HasTag("undefined-condition"))		// <undefined-condition/>
-					return ErrorCondition.UndefinedCondition;
-				else if (HasTag("unexpected-request"))		// <unexpected-request/>
-					return ErrorCondition.UnexpectedRequest;
+  if (HasTag('bad-request'))	then				// <bad-request/>
+					Result:= TErrorCondition.BadRequest
+				else if (HasTag('conflict'))then				// <conflict/>
+					Result:= TErrorCondition.Conflict
+				else if  (HasTag('feature-not-implemented'))then// <feature-not-implemented/>
+					Result:= TErrorCondition.FeatureNotImplemented
+				else if (HasTag('forbidden'))then				// <forbidden/>
+					Result:= TErrorCondition.Forbidden
+				else if (HasTag('gone'))	then				// <gone/>
+					Result:= TErrorCondition.Gone
+				else if (HasTag('internal-server-error'))then		// <internal-server-error/>
+					Result:= TErrorCondition.InternalServerError
+				else if (HasTag('item-not-found'))then				// <item-not-found/>
+					Result:= TErrorCondition.ItemNotFound
+				else if (HasTag('jid-malformed'))then				// <jid-malformed/>
+					Result:= TErrorCondition.JidMalformed
+				else if (HasTag('not-acceptable'))then				// <not-acceptable/>
+					Result:= TErrorCondition.NotAcceptable
+				else if (HasTag('not-authorized'))then				// <not-authorized/>
+					Result:= TErrorCondition.NotAuthorized
+				else if (HasTag('payment-required'))then			// <payment-required/>
+					Result:= TErrorCondition.PaymentRequired
+				else if (HasTag('recipient-unavailable'))then		// <recipient-unavailable/>
+					Result:= TErrorCondition.RecipientUnavailable
+				else if (HasTag('redirect'))then				// <redirect/>
+					Result:= TErrorCondition.Redirect
+				else if (HasTag('registration-required'))then		// <registration-required/>
+					Result:= TErrorCondition.RegistrationRequired
+				else if (HasTag('remote-server-not-found'))then		// <remote-server-not-found/>
+					Result:= TErrorCondition.RemoteServerNotFound
+				else if (HasTag('remote-server-timeout'))then		// <remote-server-timeout/>
+					Result:= TErrorCondition.RemoteServerTimeout
+				else if (HasTag('resource-constraint'))then			// <resource-constraint/>
+					Result:= TErrorCondition.ResourceConstraint
+				else if (HasTag('service-unavailable'))then			// <service-unavailable/>
+					Result:= TErrorCondition.ServiceUnavailable
+				else if (HasTag('subscription-required'))then		// <subscription-required/>
+					Result:= TErrorCondition.SubscriptionRequired
+				else if (HasTag('undefined-condition'))then			// <undefined-condition/>
+					Result:= TErrorCondition.UndefinedCondition
+				else if (HasTag('unexpected-request')) then			// <unexpected-request/>
+					Result:= TErrorCondition.UnexpectedRequest
 				else
- 					return ErrorCondition.UndefinedCondition;
+ 					Result:= TErrorCondition.UndefinedCondition;
 end;
 
-function TError.FGetErrorCode: string;
+function TError.FGetErrorCode: TErrorCode;
 begin
-
+  Result:=TErrorCode(StrToInt(AttributeValueByName['code']));
 end;
 
-function TError.FGetErrorType: string;
+function TError.FGetErrorType: TErrorType;
 begin
-
+  Result:=TErrorType(StrToInt(AttributeValueByName['type']));
 end;
 
 function TError.FGetMessage: string;
 begin
-
+  Result:=Value;
 end;
 
 procedure TError.FSetCondition(value: TErrorCondition);
 begin
-
+  case(value) of
+					TErrorCondition.BadRequest:
+          begin
+						Name:='bad-request';
+						ErrorType:= TErrorType.etmodify;
+			    end;
+					TErrorCondition.Conflict:
+          begin
+						name:='conflict';
+ 						ErrorType:= TErrorType.etcancel;
+          end;
+					TErrorCondition.FeatureNotImplemented:
+          begin
+						name:='feature-not-implemented';
+						ErrorType:= TErrorType.etcancel;
+          end;
+					TErrorCondition.Forbidden:
+          begin
+            name:='forbidden';
+						ErrorType:= TErrorType.etauth;
+          end;
+					TErrorCondition.Gone:
+          begin
+            name:='gone';
+						ErrorType:= TErrorType.etmodify;
+          end;
+					TErrorCondition.InternalServerError:
+          begin
+          name:='internal-server-error';
+						ErrorType:= TErrorType.etwait;
+          end;
+					TErrorCondition.ItemNotFound:
+					begin
+            name:='item-not-found';
+						ErrorType:= TErrorType.etcancel;
+					end;
+					TErrorCondition.JidMalformed:
+					begin
+            name:='jid-malformed';
+						ErrorType:= TErrorType.etmodify;
+					end;
+					TErrorCondition.NotAcceptable:
+					begin name:='not-acceptable';
+						ErrorType:= TErrorType.etmodify;
+						end;
+					TErrorCondition.NotAllowed:
+					begin name:='not-allowed';
+						ErrorType:= TErrorType.etcancel;
+						end;
+					TErrorCondition.NotAuthorized:
+					begin name:='not-authorized';
+						ErrorType:= TErrorType.etauth;
+						end;
+					TErrorCondition.PaymentRequired:
+					begin name:='payment-required';
+						ErrorType:= TErrorType.etauth;
+						end;
+					TErrorCondition.RecipientUnavailable:
+					begin name:='recipient-unavailable';
+						ErrorType:= TErrorType.etwait;
+						end;
+					TErrorCondition.Redirect:
+					begin name:='redirect';
+						ErrorType:= TErrorType.etmodify;
+						end;
+					TErrorCondition.RegistrationRequired:
+					begin name:='registration-required';
+						ErrorType:= TErrorType.etauth;
+						end;
+					TErrorCondition.RemoteServerNotFound:
+					begin name:='remote-server-not-found';
+						ErrorType:= TErrorType.etcancel;
+						end;
+					TErrorCondition.RemoteServerTimeout:
+					begin name:='remote-server-timeout';
+						ErrorType:= TErrorType.etwait;
+						end;
+					TErrorCondition.ResourceConstraint:
+					begin name:='resource-constraint';
+						ErrorType:= TErrorType.etwait;
+						end;
+					TErrorCondition.ServiceUnavailable:
+					begin name:='service-unavailable';
+						ErrorType:= TErrorType.etcancel;
+						end;
+					TErrorCondition.SubscriptionRequired:
+					begin name:='subscription-required';
+						ErrorType:= TErrorType.etauth;
+						end;
+					TErrorCondition.UndefinedCondition:
+					begin name:='undefined-condition';
+						// could be any
+						end;
+					TErrorCondition.UnexpectedRequest:
+					begin name:='unexpected-request';
+						ErrorType:= TErrorType.etwait;
+						end;
+          end;
 end;
 
-procedure TError.FSetErrorCode(value: string);
+procedure TError.FSetErrorCode(value: TErrorCode);
 begin
-
+  AttributeAdd('code',IntToStr(Integer(value)));
 end;
 
-procedure TError.FSetErrorType(value: string);
+procedure TError.FSetErrorType(value: TErrorType);
 begin
-
+  AttributeAdd('error',IntToStr(Integer(value)));
 end;
 
 procedure TError.FSetMessage(value: string);
 begin
-
+  Self.Value:=value;
 end;
 
 end.

@@ -117,7 +117,7 @@ end;
 function TElement.HasTag(tag: string): Boolean;
 begin
   if(FindNode(tag)<>nil)then
-    Result:=True;
+    Result:=True
   else
     Result:=false;
 end;
