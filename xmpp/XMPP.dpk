@@ -46,7 +46,8 @@ contains
   Stream in 'protocol\Base\Stream.pas',
   Avatar in 'protocol\Base\Avatar.pas',
   Base64 in 'Base64.pas',
-  Error in 'client\Error.pas',
-  XmppUri in 'XmppUri.pas';
+  Error in 'protocol\client\Error.pas',
+  XmppUri in 'XmppUri.pas',
+  IQ in 'protocol\client\IQ.pas';
 
 end.
