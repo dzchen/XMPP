@@ -1,0 +1,60 @@
+package XMPP;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl,
+  soaprtl;
+
+contains
+  DirectionalElement in 'protocol\Base\DirectionalElement.pas',
+  Stanza in 'protocol\Base\Stanza.pas',
+  XMLAttrib in 'XML\XMLAttrib.pas',
+  XMLCData in 'XML\XMLCData.pas',
+  XMLNode in 'XML\XMLNode.pas',
+  SecHash in 'util\SecHash.pas',
+  Jid in 'Jid.pas',
+  stringprep in 'Idn\stringprep.pas',
+  Element in 'XML\Dom\Element.pas',
+  Item in 'protocol\Base\Item.pas',
+  RosterItem in 'protocol\Base\RosterItem.pas',
+  Group in 'protocol\Base\Group.pas',
+  Id in 'Id.pas',
+  Stream in 'protocol\Base\Stream.pas',
+  Avatar in 'protocol\Base\Avatar.pas',
+  Base64 in 'Base64.pas',
+
+  Error in 'protocol\client\Error.pas',
+  XmppUri in 'XmppUri.pas',
+  IQ in 'protocol\client\IQ.pas';
+
+
+  XmppUri in 'XmppUri.pas'
+
+
+
+
+end.

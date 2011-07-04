@@ -11,7 +11,8 @@ type
     procedure FSetVersion(value:string);
     function FGetVersion():string;
   public
-    constructor Create(AOwner:TNativeXml;tag:string);
+
+    constructor Create();override;
     property StreamId:string read FGetStreamId write FSetStreamId;
     property Version:string read FGetVersion write FSetVersion;
   end;
@@ -20,9 +21,10 @@ implementation
 
 { TStream }
 
-constructor TStream.Create(AOwner: TNativeXml; tag: string);
+constructor TStream.Create();
 begin
-  inherited CreateName(AOwner,tag);
+  inherited Create();
+  name:='stream';
 end;
 
 function TStream.FGetStreamId: string;
@@ -37,12 +39,12 @@ end;
 
 procedure TStream.FSetStreamId(value: string);
 begin
-  AttributeAdd('id',value);
+  SetAttribute('id',value);
 end;
 
 procedure TStream.FSetVersion(value: string);
 begin
-  AttributeAdd('version',value);
+  SetAttribute('version',value);
 end;
 
 end.

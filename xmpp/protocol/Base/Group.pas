@@ -9,8 +9,8 @@ type
     function fgetitemname:string;
     procedure fsetitemname(value:string);
   public
-    constructor Create(AOwner:TNativeXML);overload;
-    constructor Create(AOwner:TNativeXML;groupname:string);overload;
+    constructor Create();overload;override;
+    constructor Create(groupname:string);overload;
     property ItemName read FGetItemName write FSetItemName;
   end;
 
@@ -18,15 +18,15 @@ implementation
 
 { TGroup }
 
-constructor TGroup.Create(AOwner: TNativeXML);
+constructor TGroup.Create();
 begin
-  inherited Create(AOwner);
+  inherited Create();
   Name:='group';
 end;
 
-constructor TGroup.Create(AOwner: TNativeXML; groupname: string);
+constructor TGroup.Create(groupname: string);
 begin
-  inherited Create(AOwner);
+  self.Create();
   ItemName:=groupname;
 end;
 

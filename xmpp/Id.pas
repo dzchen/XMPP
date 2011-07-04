@@ -36,6 +36,8 @@ begin
   begin
     V := TGUID.NewGuid;
     S := V.ToString;
+    S:=StringReplace(v.tostring,'{','',[rfIgnoreCase]);
+    S:=StringReplace(S,'}','',[rfIgnoreCase]);
     Result:=_prefix+s;
   end;
 end;

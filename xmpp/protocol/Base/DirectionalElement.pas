@@ -43,27 +43,34 @@ end;
 procedure TDirectionalElement.FSetFromJid(jid: Tjid);
 begin
   if jid<>nil then
-    AttributeAdd('from',jid.ToString)
+    SetAttribute('from',jid.ToString)
   else
-    AttributeDelete(AttributeIndexByName('from'));
+    RemoveAttribute('from');
 end;
 
 procedure TDirectionalElement.FSetToJid(jid: Tjid);
 begin
   if jid<>nil then
-    AttributeAdd('to',jid.ToString)
+    SetAttribute('to',jid.ToString)
   else
-    AttributeDelete(AttributeIndexByName('to'));
+    RemoveAttribute('to');
 end;
 
 procedure TDirectionalElement.SwitchDirection;
 var
   jfrom,jto:TJID;
+  helper:tjid;
 begin
   jfrom:=FromJid;
   jto:=tojid;
-  AttributeAdd('from',jto.ToString);
-  AttributeAdd('to',jfrom.ToString);
+  RemoveAttribute('from');
+  RemoveAttribute('to');
+  helper:=jfrom;
+  jfrom:=jto;
+  jto:=helper;
+  fromjid:=jfrom;
+  tojid:=jto;
+ 
 end;
 
 

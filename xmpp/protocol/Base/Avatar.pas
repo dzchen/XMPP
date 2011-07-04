@@ -11,7 +11,7 @@ type
     procedure FSetMimeType(value:string);
     function FGetMimeType():string;
   public
-    constructor Create(AOwner:TNativeXml;tag:string);
+    constructor Create(tag:string);override;
     property Data:tbytes  read FGetData write FSetData;
     property MimeType:string read FGetMimeType write FSetMimeType;
   end;
@@ -20,9 +20,9 @@ implementation
 
 { TAvatar }
 
-constructor TAvatar.Create(AOwner: TNativeXml; tag: string);
+constructor TAvatar.Create(tag: string);
 begin
-  inherited Create(AOwner,tag);
+  inherited Create(tag);
 end;
 
 function TAvatar.FGetData: tbytes;
@@ -50,13 +50,13 @@ end;
 
 procedure TAvatar.FSetData(value: tbytes);
 begin
-  NodeFindOrCreate('data').Value:=EncodeBase64(value,length(value));
+  settag('data',EncodeBase64(value,length(value)));
 end;
 
 procedure TAvatar.FSetMimeType(value: string);
 begin
   if(FindNode('data')<>nil)then
-    AttributeAdd('mimetype',value);
+    SetAttribute('mimetype',value);
 end;
 
 end.

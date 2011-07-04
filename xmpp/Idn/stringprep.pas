@@ -42,7 +42,8 @@ var
     uin: String;
     uout: array[0..1024] of Char;
 begin
-    Result := '';
+    Result := input;
+    exit;
     try
         uin := UTF8Encode(input);
         if (jabber_nodeprep(PChar(uin), @uout, 1024) = 0) then
@@ -56,7 +57,8 @@ var
     uin: String;
     uout: array[0..1024] of Char;
 begin
-    Result := '';
+    Result := input;
+    exit;
     try
         uin := UTF8Encode(input);
         if (jabber_nameprep(PChar(uin), @uout, 1024) = 0) then
@@ -70,7 +72,8 @@ var
     uin: String;
     uout: array[0..1024] of Char;
 begin
-    Result := '';
+    Result := input;
+    exit;
     try
         uin := UTF8Encode(input);
         if (jabber_resourceprep(PChar(uin), @uout, 1024) = 0) then
@@ -85,7 +88,8 @@ var
     uout: string;
     len: integer;
 begin
-    Result := '';
+    Result := str;
+    exit;
     try
         uin := UTF8Encode(str);
         len := Length(uin) * 4;  // Set buffer to 4 * the length.  UTF8 is only going to change 1->4 max.

@@ -14,17 +14,17 @@ type
         _valid: boolean;
         _bare:string;
 
-        procedure BuildJid(); overload;
         function BuildJid(user,server,resource:string):string; overload;
+      procedure FSetDomain(value:string);
+      procedure FSetResource(value:string);
 
     procedure fsetuser(value:string);
-
-
     public
+        procedure BuildJid(); overload;
         constructor Create(jid: string; isEscaped: boolean = true); overload;
         constructor Create(user: string; domain: string; resource: string); overload;
         constructor Create(jid: TJID); overload;
-      function ToString: string;
+      function ToString: string;override;
 
 
 
@@ -39,8 +39,8 @@ class   function removeJEP106(escapedUser: string): string;
 
         property user: string read _user write fsetuser;
         property Bare:string read _bare;
-        property domain: string read _domain;
-        property resource: string read _resource;
+        property domain: string read _domain write FSetDomain;
+        property resource: string read _resource write FSetResource;
 
         property isValid: boolean read _valid;
 end;
@@ -203,6 +203,18 @@ begin
 
     _domain := jid._domain;
     _resource := jid._resource;
+end;
+
+procedure TJID.FSetDomain(value: string);
+begin
+  _domain:=xmpp_nameprep(value);
+  BuildJid;
+end;
+
+procedure TJID.FSetResource(value: string);
+begin
+  _resource:=xmpp_resourceprep(value);
+  BuildJid;
 end;
 
 {---------------------------------------}

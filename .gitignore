@@ -1,8 +1,10 @@
+.hg
 .svn
 __history
 debug
 *.local
 *.tvsconfig
 *.identcache
+.hgignore
 LibrarySupport
 ModelSupport_XMPP

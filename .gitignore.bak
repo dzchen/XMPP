@@ -4,3 +4,6 @@ debug
 *.local
 *.tvsconfig
 *.identcache
+.hgignore
+LibrarySupport
+ModelSupport_XMPP

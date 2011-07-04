@@ -7,6 +7,18 @@
 				<Dependencies/>
 			</Projects>
 			<Projects Include="Demo\demo.dproj">
+				<Dependencies>XMPP.dproj</Dependencies>
+			</Projects>
+			<Projects Include="..\..\IDChat\Project1.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\..\NativeXml330\nativexml\demos\xmltest\xmltest.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="E:\cvery.comdel72024246524\AnyQ(new)\jopl\sample\jopl_sample.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\..\Project1.dproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -26,23 +38,50 @@
 		<Target Name="XMPP:Make">
 			<MSBuild Projects="XMPP.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="demo">
+		<Target Name="demo" DependsOnTargets="XMPP">
 			<MSBuild Projects="Demo\demo.dproj"/>
 		</Target>
-		<Target Name="demo:Clean">
+		<Target Name="demo:Clean" DependsOnTargets="XMPP:Clean">
 			<MSBuild Projects="Demo\demo.dproj" Targets="Clean"/>
 		</Target>
-		<Target Name="demo:Make">
+		<Target Name="demo:Make" DependsOnTargets="XMPP:Make">
 			<MSBuild Projects="Demo\demo.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="Project1">
+			<MSBuild Projects="..\..\Project1.dproj"/>
+		</Target>
+		<Target Name="Project1:Clean">
+			<MSBuild Projects="..\..\Project1.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="Project1:Make">
+			<MSBuild Projects="..\..\Project1.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="xmltest">
+			<MSBuild Projects="..\..\NativeXml330\nativexml\demos\xmltest\xmltest.dproj"/>
+		</Target>
+		<Target Name="xmltest:Clean">
+			<MSBuild Projects="..\..\NativeXml330\nativexml\demos\xmltest\xmltest.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="xmltest:Make">
+			<MSBuild Projects="..\..\NativeXml330\nativexml\demos\xmltest\xmltest.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="jopl_sample">
+			<MSBuild Projects="E:\cvery.comdel72024246524\AnyQ(new)\jopl\sample\jopl_sample.dproj"/>
+		</Target>
+		<Target Name="jopl_sample:Clean">
+			<MSBuild Projects="E:\cvery.comdel72024246524\AnyQ(new)\jopl\sample\jopl_sample.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="jopl_sample:Make">
+			<MSBuild Projects="E:\cvery.comdel72024246524\AnyQ(new)\jopl\sample\jopl_sample.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="XMPP;demo"/>
+			<CallTarget Targets="XMPP;demo;Project1;xmltest;jopl_sample;Project1"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="XMPP:Clean;demo:Clean"/>
+			<CallTarget Targets="XMPP:Clean;demo:Clean;Project1:Clean;xmltest:Clean;jopl_sample:Clean;Project1:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="XMPP:Make;demo:Make"/>
+			<CallTarget Targets="XMPP:Make;demo:Make;Project1:Make;xmltest:Make;jopl_sample:Make;Project1:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

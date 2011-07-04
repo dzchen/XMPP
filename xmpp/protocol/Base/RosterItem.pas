@@ -21,7 +21,7 @@ procedure TRosterItem.AddGroup(groupname: string);
 var
   g:TGroup;
 begin
-  g:=TGroup.Create(Document,groupname);
+  g:=TGroup.Create(groupname);
   NodeAdd(g);
 end;
 

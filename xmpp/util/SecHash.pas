@@ -47,10 +47,11 @@ type
     { Protected-Deklarationen }
   public
     { Public-Deklarationen }
-    function ComputeString(const Msg:String):TIntDigest;
+    function ComputeString(const Msg:RawByteString):TIntDigest;
     function ComputeFile(FileName:String):TIntDigest;
-    function ComputeMem(mem:pChar;length:integer):TIntDigest;
+    function ComputeMem(mem:PAnsiChar;length:integer):TIntDigest;
     function IntDigestToByteDigest(IntDigest:TIntDigest):TByteDigest;
+    class function Sha1Hash(fkey: string): string;
   published
     { Published-Deklarationen }
   end;
@@ -211,9 +212,28 @@ asm
 end;
 
 
-function TSecHash.ComputeMem(Mem:pChar;length:integer):TIntDigest;
+class function TSecHash.Sha1Hash(fkey: string): string;
+var
+    hasher: TSecHash;
+    h: TIntDigest;
+    i: integer;
+    s: string;
+begin
+    // Do a SHA1 hash using the sechash.pas unit
+    hasher := TSecHash.Create(nil);
+    h := hasher.ComputeString(UTF8Encode(fkey));
+    s := '';
+    for i := 0 to 4 do
+        s := s + IntToHex(h[i], 8);
+    s := Lowercase(s);
+    hasher.Free;
+    Result := s;
+end;
+
+function TSecHash.ComputeMem(Mem:PAnsiChar;length:integer):TIntDigest;
 var
     i,BitsLow,BitsHigh,ToCompute : integer;
+
 begin
    Try
       BitsHigh:=(length and $FF000000) shr 29;
@@ -259,9 +279,9 @@ begin
    end;
 end;
 
-function TSecHash.ComputeString(const Msg:String):TIntDigest;
+function TSecHash.ComputeString(const Msg:RawByteString):TIntDigest;
 begin
-   Result:=ComputeMem(pChar(Msg),length(Msg));
+   Result:=ComputeMem(PAnsiChar(Msg),length(Msg));
 end;
 
 

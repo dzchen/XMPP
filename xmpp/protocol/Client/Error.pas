@@ -108,11 +108,11 @@ type
     procedure FSetCondition(value:TErrorCondition);
     function FGetCondition():TErrorCondition;
   public
-    constructor Create(AOwner:TNativeXml);overload;
-    constructor Create(AOwner:TNativeXml;code:TErrorCode);overload;
-    constructor CreateError(AOwner: TNativeXml;tp:TErrorType);
-    constructor CreateCondition(AOwner: TNativeXml;condition:TErrorCondition);
-    constructor CreateErrorCondition(AOwner: TNativeXml;tp:TErrorType;condition:TErrorCondition);
+    constructor Create();override;
+    constructor Create(code:TErrorCode);overload;
+    constructor CreateError(tp:TErrorType);
+    constructor CreateCondition(condition:TErrorCondition);
+    constructor CreateErrorCondition(tp:TErrorType;condition:TErrorCondition);
     property Message:string read FGetMessage write FSetMessage;
     property Code:TErrorCode read FGetErrorCode write FSetErrorCode;
     property ErrorType:TErrorType read FGetErrorType write FSetErrorType;
@@ -124,34 +124,35 @@ implementation
 
 { TError }
 
-constructor TError.Create(AOwner: TNativeXml; code: TErrorCode);
+constructor TError.Create(code: TErrorCode);
 begin
-  inherited Create(AOwner);
-  AttributeAdd('code',sdIntToString(Integer(code)));
+  Self.Create();
+  SetAttribute('code',sdIntToString(Integer(code)));
 end;
 
-constructor TError.Create(AOwner: TNativeXml);
+constructor TError.Create();
 begin
-  inherited Create(AOwner,'error');
+  inherited Create();
+  Name:='error';
   Namespace:=XMLNS_CLIENT;
 end;
 
-constructor TError.CreateError(AOwner: TNativeXml; tp: TErrorType);
+constructor TError.CreateError(tp: TErrorType);
 begin
-  inherited Create(AOwner);
+  self.Create();
   ErrorType:=tp;
 end;
 
-constructor TError.CreateErrorCondition(AOwner: TNativeXml; tp: TErrorType;
+constructor TError.CreateErrorCondition(tp: TErrorType;
   condition: TErrorCondition);
 begin
-  CreateError(AOwner,tp);
+  CreateError(tp);
   Condition:=condition;
 end;
 
-constructor TError.CreateCondition(AOwner: TNativeXml; condition: TErrorCondition);
+constructor TError.CreateCondition(condition: TErrorCondition);
 begin
-  inherited Create(AOwner);
+  self.Create();
   Condition:=condition;
 end;
 
@@ -322,12 +323,12 @@ end;
 
 procedure TError.FSetErrorCode(value: TErrorCode);
 begin
-  AttributeAdd('code',IntToStr(Integer(value)));
+  SetAttribute('code',IntToStr(Integer(value)));
 end;
 
 procedure TError.FSetErrorType(value: TErrorType);
 begin
-  AttributeAdd('error',IntToStr(Integer(value)));
+  SetAttribute('error',IntToStr(Integer(value)));
 end;
 
 procedure TError.FSetMessage(value: string);

@@ -12,7 +12,7 @@ type
     procedure fsetitemname(value:string);
   published
   public
-    constructor Create(AOwner:tnativexml);
+    constructor Create();override;
     property Jid:TJID read fgetjid write fsetjid;
     property ItemName:string read fgetitemname write fsetitemname;
   end;
@@ -21,9 +21,9 @@ implementation
 
 { TItem }
 
-constructor TItem.Create(AOwner: tnativexml);
+constructor TItem.Create();
 begin
-  inherited Create(AOwner);
+  inherited Create();
   name:='item';
 end;
 
@@ -42,7 +42,7 @@ end;
 
 procedure TItem.fsetitemname(value: string);
 begin
-  AttributeAdd('name',value);
+  SetAttribute('name',value);
 end;
 
 procedure TItem.fsetjid(value: TJID);

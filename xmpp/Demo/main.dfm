@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 290
+  ClientHeight = 431
   ClientWidth = 554
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -55,5 +55,84 @@ object Form1: TForm1
     Caption = 'btn3'
     TabOrder = 4
     OnClick = btn3Click
+  end
+  object btn4: TButton
+    Left = 192
+    Top = 39
+    Width = 75
+    Height = 25
+    Caption = 'btn4'
+    TabOrder = 5
+    OnClick = btn4Click
+  end
+  object btn5: TButton
+    Left = 192
+    Top = 70
+    Width = 75
+    Height = 25
+    Caption = 'VCard'
+    TabOrder = 6
+    OnClick = btn5Click
+  end
+  object mmo1: TMemo
+    Left = 168
+    Top = 120
+    Width = 369
+    Height = 303
+    Lines.Strings = (
+      'mmo1')
+    ScrollBars = ssBoth
+    TabOrder = 7
+  end
+  object btn6: TButton
+    Left = 336
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'btn6'
+    TabOrder = 8
+    OnClick = btn6Click
+  end
+  object btn7: TButton
+    Left = 40
+    Top = 312
+    Width = 75
+    Height = 25
+    Caption = 'btn7'
+    TabOrder = 9
+    OnClick = btn7Click
+  end
+  object btn8: TButton
+    Left = 40
+    Top = 343
+    Width = 75
+    Height = 25
+    Caption = 'btn8'
+    TabOrder = 10
+    OnClick = btn8Click
+  end
+  object btn9: TButton
+    Left = 48
+    Top = 216
+    Width = 75
+    Height = 25
+    Caption = 'btn9'
+    TabOrder = 11
+    OnClick = btn9Click
+  end
+  object redt1: TRichEdit
+    Left = 288
+    Top = 96
+    Width = 185
+    Height = 89
+    Font.Charset = GB2312_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Lines.Strings = (
+      'redt1')
+    ParentFont = False
+    TabOrder = 12
   end
 end
